@@ -3,20 +3,21 @@
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true, // Nécessaire pour NestJS
+    "experimentalDecorators": true, // Active les décorateurs
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
+    "target": "ES2021", // Version moderne d'ECMAScript
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "incremental": true, // Améliore les performances de la compilation
+    "skipLibCheck": true, // Ignore les erreurs des fichiers de bibliothèque
+    "strictNullChecks": true, // Active les vérifications des valeurs null/undefined
+    "noImplicitAny": true, // Empêche les types implicites "any"
+    "strictBindCallApply": true, // Vérifie les types dans `bind`, `call` et `apply`
+    "forceConsistentCasingInFileNames": true, // Évite les problèmes de casse
+    "noFallthroughCasesInSwitch": true, // Empêche les erreurs dans les switch
+    "esModuleInterop": true // Facilite l'interopérabilité des modules CommonJS
   },
   "include": ["src/**/*.ts", "test/**/*.ts"],
   "exclude": ["node_modules", "dist"]

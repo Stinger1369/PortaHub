@@ -25,7 +25,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  flex-direction: column; /* Colonne pour que le header soit en haut */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -54,6 +54,49 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Header spécifique */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #242424;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header .nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.header .nav-button {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header .nav-button:hover {
+  background-color: white;
+  color: #242424;
+}
+
+/* Contenu principal */
+main {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* Mode clair */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -64,5 +107,16 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+  .header {
+    background-color: #ffffff;
+    color: #213547;
+  }
+  .header .nav-button {
+    border-color: #213547;
+  }
+  .header .nav-button:hover {
+    background-color: #213547;
+    color: white;
   }
 }

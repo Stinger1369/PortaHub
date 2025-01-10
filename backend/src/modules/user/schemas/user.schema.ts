@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 @Schema()
 export class HistoryEntry {
@@ -70,7 +70,7 @@ export class User extends Document {
   profilePicture?: string; // URL de la photo de profil
 
   @Prop({ default: [] })
-  history: HistoryEntry[];
+  history: HistoryEntry[]; // Historique des actions utilisateur
 
   @Prop({ type: String, default: null })
   validationCode?: string;
@@ -83,6 +83,9 @@ export class User extends Document {
 
   @Prop()
   providerId?: string; // ID utilisateur fourni par le fournisseur OAuth
+
+  // Typage explicite de l'ID
+  _id: Types.ObjectId; // Ajout pour résoudre les problèmes avec _id dans user.service.ts
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

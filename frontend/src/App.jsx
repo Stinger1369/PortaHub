@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Homescreen from './pages/Home/Homescreen'; // Votre écran d'accueil
+import Header from './components/header/Header';
+import Signup from './components/Signup/Signup';
+import UserProfile from './components/UserProfile';
+import ConfirmationScreen from './components/ConfirmationScreen/ConfirmationScreen';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router
+      future={{
+        v7_startTransition: true, // Active la gestion des transitions pour v7
+        v7_relativeSplatPath: true, // Change la gestion des chemins relatifs pour v7
+      }}
+    >
+      <div className="App">
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Homescreen />} /> {/* Définir le chemin par défaut */}
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/confirmation" element={<ConfirmationScreen />} />
+            <Route path="/profile" element={<UserProfile />} />
+          </Routes>
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </Router>
+  );
+};
 
-export default App
+export default App;

@@ -36,13 +36,14 @@ export class UserController {
 
     if (
       user.validationCode !== validationCode ||
-      new Date() > user.validationCodeExpiration
+      (user.validationCodeExpiration && new Date() > user.validationCodeExpiration)
     ) {
       throw new BadRequestException('Invalid or expired validation code');
     }
 
-    user.validationCode = null;
-    user.validationCodeExpiration = null;
+    // Assignez `undefined` au lieu de `null` pour correspondre au type des propriétés
+    user.validationCode = undefined;
+    user.validationCodeExpiration = undefined;
 
     await this.userService.updateUser(user);
 
@@ -50,17 +51,16 @@ export class UserController {
   }
 
   @Post('resend-validation-code')
-async resendValidationCode(@Body() { email }: { email: string }): Promise<{ message: string }> {
-  return this.userService.resendValidationCode(email);
-}
+  async resendValidationCode(@Body() { email }: { email: string }): Promise<{ message: string }> {
+    return this.userService.resendValidationCode(email);
+  }
 
   @Post('login')
-async login(
-  @Body() { identifier, password }: { identifier: string; password: string },
-): Promise<{ accessToken: string; isActive: boolean; email: string; userId: string }> {
-  return this.userService.login(identifier, password);
-}
-
+  async login(
+    @Body() { identifier, password }: { identifier: string; password: string },
+  ): Promise<{ accessToken: string; isActive: boolean; email: string; userId: string }> {
+    return this.userService.login(identifier, password);
+  }
 
   @Post('logout')
   @UseGuards(JwtAuthGuard)

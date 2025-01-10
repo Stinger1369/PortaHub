@@ -9,13 +9,23 @@ export class EmailService {
   private transporter;
 
   constructor() {
+    // Vérifier que les variables d'environnement nécessaires sont définies
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = process.env.SMTP_PORT;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+
+    if (!smtpHost || !smtpPort || !smtpUser || !smtpPass) {
+      throw new Error('SMTP configuration is missing. Please check your .env file.');
+    }
+
     this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST, // Serveur SMTP
-      port: parseInt(process.env.SMTP_PORT, 10), // Port SMTP
+      host: smtpHost, // Serveur SMTP
+      port: parseInt(smtpPort, 10), // Port SMTP
       secure: process.env.SMTP_SECURE === 'true', // SSL/TLS
       auth: {
-        user: process.env.SMTP_USER, // Adresse email
-        pass: process.env.SMTP_PASS, // Mot de passe
+        user: smtpUser, // Adresse email
+        pass: smtpPass, // Mot de passe
       },
     });
   }
